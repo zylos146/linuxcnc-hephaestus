@@ -1,0 +1,645 @@
+2023-01-18 21:52:06,893 - qtpyvcp - INFO - Logging to /home/avery/linuxcnc/configs/probe_basic_taig/sim.log
+2023-01-18 21:52:06,894 - qtpyvcp - INFO - QtPyVCP Version: python3_master+329.g16c50c8c
+2023-01-18 21:52:06,954 - qtpyvcp - DEBUG - Qt Version: 5.15.2
+2023-01-18 21:52:06,955 - qtpyvcp - DEBUG - Qt API: QT_API
+2023-01-18 21:52:06,955 - qtpyvcp - DEBUG - QtPy Version: 1.9.0
+2023-01-18 21:52:06,955 - qtpyvcp - DEBUG - Command line options:
+{
+    "command_line_args": null,
+    "config_file": "/home/avery/linuxcnc/configs/probe_basic_taig/custom_config.yml",
+    "confirm_exit": false,
+    "develop": false,
+    "fullscreen": null,
+    "help": false,
+    "hide_cursor": false,
+    "hide_menu_bar": false,
+    "hide_status_bar": false,
+    "info": false,
+    "ini": "/home/avery/linuxcnc/configs/probe_basic_taig/probe_basic.ini",
+    "log_file": "/home/avery/linuxcnc/configs/probe_basic_taig/sim.log",
+    "log_level": "DEBUG",
+    "maximize": null,
+    "perfmon": false,
+    "position": "0x0",
+    "qt_api": null,
+    "size": null,
+    "stylesheet": null,
+    "theme": null,
+    "version": false
+}
+2023-01-18 21:52:07,274 - qtpyvcp.utilities.config_loader - DEBUG - Loading config files: ['/home/avery/linuxcnc/configs/probe_basic_taig/custom_config.yml', '/home/avery/LinuxCNC_Install/probe_basic/probe_basic/probe_basic.yml', '/home/avery/.local/lib/python3.9/site-packages/qtpyvcp/yaml_lib/default_config.yml']
+2023-01-18 21:52:08,259 - qtpyvcp.utilities.config_loader - DEBUG - Merged YAML config:
+
+default_menubar:
+- title: File
+  items:
+  - title: '&Open ...'
+    action: win.openFile
+    shortcut: ctrl+o
+  - title: '&Recent Files'
+    provider: qtpyvcp.widgets.recent_files_menu:RecentFilesMenu
+  - title: '&Reload'
+    action: program.reload
+  - title: '&Close'
+    action: program.clear
+  - title: Save &As
+    action: null
+  - separator
+  - title: Edit ToolTable
+    action: win.showDialog
+    args:
+    - tool_edit
+  - separator
+  - title: Exit
+    action: app.exit
+    shortcut: ctrl+q
+- title: Machine
+  items:
+  - title: Toggle E-Stop
+    action: machine.estop.toggle
+    shortcut: F1
+  - title: Toggle Power
+    action: machine.power.toggle
+    shortcut: F2
+  - separator
+  - title: Run Program
+    action: program.run
+    shortcut: R
+  - title: Step
+    action: program.step
+    shortcut: T
+  - title: Pause
+    action: program.pause
+    shortcut: P
+  - title: Resume
+    action: program.resume
+    shortcut: R
+  - title: Abort
+    action: program.abort
+    shortcut: esc
+  - title: Optional Stop
+    action: program.optional_stop.toggle
+  - title: Optional Skip
+    action: program.optional_skip.toggle
+  - separator
+  - title: Homing
+    provider: qtpyvcp.widgets.menus.homing_menu:HomingMenu
+  - title: Cooling
+    items:
+    - title: Flood
+      action: coolant.flood.toggle
+      shortcut: F7
+    - title: Mist
+      action: coolant.mist.toggle
+      shortcut: F8
+  - title: Set Work Offsets
+    action: win.showDialog
+    args:
+    - set_work_offsets
+  - separator
+  - title: Override Limits
+    action: machine.override_limits
+- title: Settings
+  items:
+  - title: Show On-screen Keyboard
+    action: settings.virtual-input.enable
+- title: View
+  items:
+  - title: Show Gridlines
+    action: settings.backplot.show-grid
+  - separator
+  - title: Show Machine Bounds
+    action: settings.backplot.show-machine-bounds
+  - title: Show Machine Labels
+    action: settings.backplot.show-machine-labels
+  - title: Show Machine Ticks
+    action: settings.backplot.show-machine-ticks
+  - separator
+  - title: Show Program Bounds
+    action: settings.backplot.show-program-bounds
+  - title: Use Colors for Motion type
+    action: settings.backplot.multitool-colors
+  - separator
+  - title: Perspective View
+    action: settings.backplot.perspective-view
+  - title: View Angle
+    action: settings.backplot.view
+- title: Tools
+  items:
+  - title: HAL Meter
+    action: tool.halmeter
+  - title: HAL Scope
+    action: tool.halscope
+  - title: HAL Show
+    action: tool.halshow
+  - title: LCNC Status
+    action: tool.status
+  - title: Calibration
+    action: tool.calibration
+  - title: Classicladder PLC
+    action: tool.classicladder
+  - title: Simulated Probe
+    action: tool.simulate_probe
+- title: About
+  items:
+  - title: About QtPyVCP
+    action: win.showDialog
+    args:
+    - about_qtpyvcp
+  - title: About Qt
+    action: app.aboutQt
+vcp:
+  name: Probe Basic
+  version: v0.0.1
+  author: Chris Polanski
+  description: Probe Basic description ...
+windows:
+  mainwindow:
+    provider: probe_basic.probe_basic:ProbeBasic
+    kwargs:
+      menu: &id001
+      - title: File
+        items:
+        - title: '&Open ...'
+          action: win.openFile
+          shortcut: ctrl+o
+        - title: '&Recent Files'
+          provider: qtpyvcp.widgets.recent_files_menu:RecentFilesMenu
+        - title: '&Reload'
+          action: program.reload
+        - title: '&Close'
+          action: program.clear
+        - title: Save &As
+          action: null
+        - separator
+        - title: Exit
+          action: app.exit
+          shortcut: ctrl+q
+      - title: Machine
+        items:
+        - title: Toggle E-Stop
+          action: machine.estop.toggle
+          shortcut: F1
+        - title: Toggle Power
+          action: machine.power.toggle
+          shortcut: F2
+        - separator
+        - title: Run Program
+          action: program.run
+          shortcut: R
+        - title: Step
+          action: program.step
+          shortcut: T
+        - title: Pause
+          action: program.pause
+          shortcut: P
+        - title: Resume
+          action: program.resume
+          shortcut: R
+        - title: Abort
+          action: program.abort
+          shortcut: esc
+        - title: Optional Stop
+          action: program.optional_stop.toggle
+        - title: Optional Skip
+          action: program.optional_skip.toggle
+        - separator
+        - title: Homing
+          provider: qtpyvcp.widgets.menus.homing_menu:HomingMenu
+        - title: Cooling
+          items:
+          - title: Flood
+            action: coolant.flood.toggle
+            shortcut: F7
+          - title: Mist
+            action: coolant.mist.toggle
+            shortcut: F8
+        - title: Set Work Offsets
+          action: win.showDialog
+          args:
+          - set_work_offsets
+        - separator
+        - title: Override Limits
+          action: machine.override_limits
+      - title: Settings
+        items:
+        - title: Show On-screen Keyboard
+          action: settings.virtual-input.enable
+      - title: View
+        items:
+        - title: Show Gridlines
+          action: settings.backplot.show-grid
+        - separator
+        - title: Show Machine Bounds
+          action: settings.backplot.show-machine-bounds
+        - title: Show Machine Labels
+          action: settings.backplot.show-machine-labels
+        - title: Show Machine Ticks
+          action: settings.backplot.show-machine-ticks
+        - separator
+        - title: Show Program Bounds
+          action: settings.backplot.show-program-bounds
+        - title: Show Program Labels
+          action: settings.backplot.show-program-labels
+        - title: Show Program Ticks
+          action: settings.backplot.show-program-ticks
+        - separator
+        - title: Perspective View
+          action: settings.backplot.perspective-view
+        - title: View Angle
+          action: settings.backplot.view
+      - title: Tools
+        items:
+        - title: HAL Meter
+          action: tool.halmeter
+        - title: HAL Scope
+          action: tool.halscope
+        - title: HAL Show
+          action: tool.halshow
+        - title: LCNC Status
+          action: tool.status
+        - title: Calibration
+          action: tool.calibration
+        - title: Classicladder PLC
+          action: tool.classicladder
+      - title: About
+        items:
+        - title: About Probe Basic
+          action: win.showDialog
+          args:
+          - about_probebasic
+        - title: About QtPyVCP
+          action: win.showDialog
+          args:
+          - about_qtpyvcp
+        - title: About Qt
+          action: app.aboutQt
+      fullscreen: true
+      ui_file: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/probe_basic.ui
+      confirm_exit: false
+data_plugins:
+  status:
+    provider: qtpyvcp.plugins.status:Status
+    kwargs:
+      cycle_time: 15
+  persistent_data_manager:
+    provider: qtpyvcp.plugins.persistent_data_manager:PersistentDataManager
+    kwargs:
+      serialization_method: pickle
+  settings:
+    provider: qtpyvcp.plugins.settings:Settings
+  position:
+    provider: qtpyvcp.plugins.positions:Position
+    kwargs:
+      report_actual_pos: true
+      use_program_units: true
+  tooltable:
+    provider: qtpyvcp.plugins.tool_table:ToolTable
+    kwargs:
+      columns: TXYZDR
+  offsettable:
+    provider: qtpyvcp.plugins.offset_table:OffsetTable
+  notifications:
+    provider: qtpyvcp.plugins.notifications:Notifications
+    kwargs:
+      enabled: true
+      mode: native
+      max_messages: 5
+      persistent: true
+  file_locations:
+    provider: qtpyvcp.plugins.file_locations:FileLocations
+    log_level: debug
+    kwargs:
+      default_location: NC Files
+      local_locations:
+        Home: ~/
+        Desktop: ~/Desktop
+        NC Files: ~/linuxcnc/nc_files
+      network_locations: null
+    exportedhal:
+      provider: qtpyvcp.plugins.exported_hal:ExportedHal
+  virtual_input:
+    provider: qtpyvcp.plugins.virtual_input_manager:VirtualInputManager
+dialogs:
+  open_file:
+    provider: qtpyvcp.widgets.dialogs.open_file_dialog:OpenFileDialog
+  set_work_offsets:
+    provider: qtpyvcp.widgets.dialogs.offsets_dialog:OffsetsDialog
+  tool_edit:
+    provider: qtpyvcp.widgets.dialogs.tool_edit_dialog:ToolEditDialog
+  probe_sim:
+    provider: qtpyvcp.widgets.dialogs.probesim_dialog:ProbeSim
+  about_qtpyvcp:
+    provider: qtpyvcp.widgets.dialogs.about_dialog:AboutDialog
+  about_probebasic:
+    provider: qtpyvcp.widgets.dialogs.about_dialog:AboutDialog
+    kwargs:
+      ui_file: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/about.ui
+virtual_input_providers:
+  number:
+    provider: qtpyvcp.widgets.virtual_input.virtual_input:VirtualInput
+    kwargs:
+      ui_file: /home/avery/.local/lib/python3.9/site-packages/qtpyvcp/yaml_lib/../widgets/virtual_input/numpad.ui
+  text:
+    provider: qtpyvcp.widgets.virtual_input.virtual_input:VirtualInput
+    kwargs:
+      ui_file: /home/avery/.local/lib/python3.9/site-packages/qtpyvcp/yaml_lib/../widgets/virtual_input/keyboard.ui
+application:
+  provider: qtpyvcp.app.application:VCPApplication
+  kwargs:
+    stylesheet: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/probe_basic.qss
+    custom_fonts: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/fonts
+settings:
+  touch-probe.diameter-offset:
+    default_value: 0.123123
+    persistent: true
+    min_value: 0
+    max_value: 1
+  dro.display-units:
+    default_value: 0
+    options:
+    - Auto
+    - Inch
+    - Metric
+  dro.lathe-radius-mode:
+    default_value: 0
+    options:
+    - Auto
+    - Radius
+    - Diameter
+  dro.inch-format:
+    default_value: '%9.4f'
+    value_type: str
+  dro.millimeter-format:
+    default_value: '%9.3f'
+    value_type: str
+  dro.degree-format:
+    default_value: '%9.2f'
+  backplot.show-grid:
+    default_value: false
+  backplot.show-program-bounds:
+    default_value: false
+  backplot.show-machine-bounds:
+    default_value: false
+  backplot.show-machine-labels:
+    default_value: false
+  backplot.show-machine-ticks:
+    default_value: false
+  backplot.perspective-view:
+    default_value: false
+  backplot.view:
+    default_value: P
+    options:
+    - 'X: Front View'
+    - 'XZ: Lathe View'
+    - 'XZ2: Lathe View'
+    - 'Y: Front View'
+    - 'Z: Top View'
+    - 'Z2: Bottom View'
+    - 'P: Isometric'
+  backplot.multitool-colors:
+    default_value: true
+  touch-probe.calibration-offset:
+    description: Probe trigger point offset.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1
+  probe-parameters.probe-tool-number:
+    description: probe tool number.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 9999
+  probe-parameters.step-off-width:
+    description: probe step off width.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1000
+  probe-parameters.probe-fast-fr:
+    description: probe fast feedrate.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1000
+  probe-parameters.probe-slow-fr:
+    description: probe slow feedrate.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1000
+  probe-parameters.max-xy-distance:
+    description: max x and y probe travel distance.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 100
+  probe-parameters.xy-clearance:
+    description: x and y clearance distance.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1000
+  probe-parameters.max-z-distance:
+    description: max z probe travel distance.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 100
+  probe-parameters.z-clearance:
+    description: z clearance distance.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1000
+  probe-parameters.extra-probe-depth:
+    description: extra probe depth.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 100
+  probe-parameters.edge-width:
+    description: edge width probing distance.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1000
+  tool-change-position.x-tool-change-position:
+    description: x axis tool change position.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-change-position.y-tool-change-position:
+    description: y axis tool change position.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-change-position.z-tool-change-position:
+    description: z axis tool change position.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-setter-probe.fast-probe-fr:
+    description: tool probe fast feedrate.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-setter-probe.slow-probe-fr:
+    description: tool probe slow feedrate.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-setter-probe.z-max-travel:
+    description: maximumm z travel while probing before erroring out.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-setter-probe.xy-max-travel:
+    description: maximumm xy travel while probing before erroring out.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-setter-probe.retract-distance:
+    description: distance tool retracts after fast probe move.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  tool-setter-probe.spindle-nose-height:
+    description: distance from home to tool setter for the spindle nose.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  programmable-coolant.active:
+    description: activates programmable coolant with 1 as entry.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 1
+  programmable-coolant.spindle-to-nozzle-dist:
+    description: horizontal distance from spindle centerline to nozzle centerline.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  programmable-coolant.gaugeline-to-nozzle-dist:
+    description: vertical distance from spindle centerline to nozzle centerline.
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+  programmable-coolant.pc-angle-offset:
+    description: coolant nozzle offset amount to adjust for distance, pressure, gravity.
+    default_value: 0.0
+    persistent: true
+    min_value: -45
+    max_value: 45
+  backplot.show-program-labels:
+    default_value: false
+  backplot.show-program-ticks:
+    default_value: false
+menubar: *id001
+qtdesigner:
+  ui_file: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/probe_basic.ui
+  qss_file: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/probe_basic.qss
+
+
+2023-01-18 21:52:08,812 - qtpyvcp.utilities.info - INFO - The machine has 3 axes and 3 joints
+2023-01-18 21:52:08,812 - qtpyvcp.utilities.info - INFO - The Axis/Joint mapping is:
+2023-01-18 21:52:08,813 - qtpyvcp.utilities.info - INFO - Axis X --> Joint 0
+2023-01-18 21:52:08,813 - qtpyvcp.utilities.info - INFO - Axis Y --> Joint 1
+2023-01-18 21:52:08,813 - qtpyvcp.utilities.info - INFO - Axis Z --> Joint 2
+2023-01-18 21:52:08,814 - qtpyvcp.app.launcher - DEBUG - Time: 0.000 (+0.000) - in script
+2023-01-18 21:52:08,818 - qtpyvcp.app.launcher - DEBUG - Loading data plugings
+2023-01-18 21:52:08,819 - qtpyvcp.plugins - DEBUG - Loading plugin 'status' from 'qtpyvcp.plugins.status:Status'
+2023-01-18 21:52:08,829 - qtpyvcp.plugins.status - DEBUG - ---------set mdi_history: None, []
+2023-01-18 21:52:08,849 - qtpyvcp.plugins - DEBUG - Loading plugin 'persistent_data_manager' from 'qtpyvcp.plugins.persistent_data_manager:PersistentDataManager'
+2023-01-18 21:52:08,851 - qtpyvcp.plugins - DEBUG - Loading plugin 'settings' from 'qtpyvcp.plugins.settings:Settings'
+2023-01-18 21:52:08,855 - qtpyvcp.plugins - DEBUG - Loading plugin 'position' from 'qtpyvcp.plugins.positions:Position'
+2023-01-18 21:52:08,858 - qtpyvcp.plugins - DEBUG - Loading plugin 'tooltable' from 'qtpyvcp.plugins.tool_table:ToolTable'
+2023-01-18 21:52:08,874 - qtpyvcp.plugins - DEBUG - Loading plugin 'offsettable' from 'qtpyvcp.plugins.offset_table:OffsetTable'
+2023-01-18 21:52:08,881 - qtpyvcp.plugins - DEBUG - Loading plugin 'notifications' from 'qtpyvcp.plugins.notifications:Notifications'
+2023-01-18 21:52:08,928 - qtpyvcp.plugins - DEBUG - Loading plugin 'file_locations' from 'qtpyvcp.plugins.file_locations:FileLocations'
+2023-01-18 21:52:09,000 - qtpyvcp.plugins - DEBUG - Loading plugin 'virtual_input' from 'qtpyvcp.plugins.virtual_input_manager:VirtualInputManager'
+2023-01-18 21:52:09,002 - qtpyvcp.app.launcher - DEBUG - Time: 0.188 (+0.188) - done loading data plugins
+2023-01-18 21:52:09,002 - qtpyvcp.app.launcher - DEBUG - Initializing app
+2023-01-18 21:52:09,242 - qtpyvcp.plugins - DEBUG - Initializing 'status' plugin
+2023-01-18 21:52:09,243 - qtpyvcp.plugins.status - DEBUG - Starting periodic updates with 15ms cycle time
+2023-01-18 21:52:09,244 - qtpyvcp.plugins - DEBUG - Initializing 'persistent_data_manager' plugin
+2023-01-18 21:52:09,244 - qtpyvcp.plugins - DEBUG - Initializing 'settings' plugin
+2023-01-18 21:52:09,245 - qtpyvcp.plugins - DEBUG - Initializing 'position' plugin
+2023-01-18 21:52:09,245 - qtpyvcp.plugins - DEBUG - Initializing 'tooltable' plugin
+2023-01-18 21:52:09,245 - qtpyvcp.plugins - DEBUG - Initializing 'offsettable' plugin
+2023-01-18 21:52:09,246 - qtpyvcp.plugins - DEBUG - Initializing 'notifications' plugin
+2023-01-18 21:52:09,251 - qtpyvcp.plugins - DEBUG - Initializing 'file_locations' plugin
+2023-01-18 21:52:09,287 - qtpyvcp.plugins - DEBUG - Initializing 'virtual_input' plugin
+2023-01-18 21:52:09,395 - qtpyvcp - INFO - Loading global stylesheet: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/probe_basic.qss
+2023-01-18 21:52:09,420 - qtpyvcp - DEBUG - Loading custom font: /home/avery/LinuxCNC_Install/probe_basic/probe_basic/fonts/BebasKai.ttf
+2023-01-18 21:52:09,424 - qtpyvcp.app.launcher - DEBUG - Time: 0.610 (+0.422) - done initializing app
+2023-01-18 21:52:09,424 - qtpyvcp.app.launcher - DEBUG - Loading dialogs
+2023-01-18 21:52:09,805 - qtpyvcp.app.launcher - DEBUG - Time: 0.992 (+0.382) - done loading dialogs
+2023-01-18 21:52:09,806 - qtpyvcp.app.launcher - DEBUG - Loading windows
+2023-01-18 21:52:12,919 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - ---------using refactored vtk code
+2023-01-18 21:52:12,920 - qtpyvcp.widgets.display_widgets.vtk_backplot.linuxcnc_datasource - DEBUG - self._status.stat.g5x_offset: <class 'tuple'>
+2023-01-18 21:52:12,921 - qtpyvcp.widgets.display_widgets.vtk_backplot.linuxcnc_datasource - WARNING - -----KeyError: Likely means no program loaded.
+2023-01-18 21:52:12,921 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - ---------active_wcs_index -1
+2023-01-18 21:52:12,921 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - ---------active_wcs_offset (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0)
+2023-01-18 21:52:12,922 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - ---------wcs_offsets {0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 1: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 3: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 4: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 5: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 6: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 7: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 8: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
+2023-01-18 21:52:12,967 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - ---------translate1: (0.0, 0.0, 0.0)
+2023-01-18 21:52:12,968 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - ---------active_wcs_offset: (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0)
+2023-01-18 21:52:13,142 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - show grid
+2023-01-18 21:52:13,150 - qtpyvcp.widgets.display_widgets.vtk_backplot.vtk_backplot - DEBUG - Setting view to: P
+2023-01-18 21:52:17,799 - qtpyvcp.widgets.base_widgets.base_widget - ERROR - Error evaluating rule: status:axes
+Traceback (most recent call last):
+  File "/home/avery/.local/lib/python3.9/site-packages/qtpyvcp/widgets/base_widgets/base_widget.py", line 176, in registerRules
+    triggers.append(chan_obj.notify)
+AttributeError: 'NoneType' object has no attribute 'notify'
+2023-01-18 21:52:43,225 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'status' plugin
+2023-01-18 21:52:43,226 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'persistent_data_manager' plugin
+2023-01-18 21:52:43,226 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'settings' plugin
+2023-01-18 21:52:43,227 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'position' plugin
+2023-01-18 21:52:43,227 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'tooltable' plugin
+2023-01-18 21:52:43,227 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'offsettable' plugin
+2023-01-18 21:52:43,228 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'notifications' plugin
+2023-01-18 21:52:43,229 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'file_locations' plugin
+2023-01-18 21:52:43,230 - qtpyvcp.plugins - DEBUG - Post GUI Initializing 'virtual_input' plugin
+2023-01-18 21:52:43,715 - qtpyvcp.app.launcher - DEBUG - Time: 34.901 (+33.909) - done loading windows
+2023-01-18 21:52:43,715 - qtpyvcp.app.launcher - DEBUG - Initializing widgets
+2023-01-18 21:52:43,811 - qtpyvcp.hal - DEBUG - Using existing HAL component: qtpyvcp
+2023-01-18 21:52:43,812 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.timerhours.enable (bit in)
+2023-01-18 21:52:43,813 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.timerhours.in (u32 in)
+2023-01-18 21:52:43,824 - qtpyvcp.hal - DEBUG - Using existing HAL component: qtpyvcp
+2023-01-18 21:52:43,825 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.timerseconds.enable (bit in)
+2023-01-18 21:52:43,825 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.timerseconds.in (u32 in)
+2023-01-18 21:52:43,827 - qtpyvcp.hal - DEBUG - Using existing HAL component: qtpyvcp
+2023-01-18 21:52:43,828 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.timerminutes.enable (bit in)
+2023-01-18 21:52:43,828 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.timerminutes.in (u32 in)
+2023-01-18 21:52:43,847 - qtpyvcp.hal - DEBUG - Using existing HAL component: qtpyvcp
+2023-01-18 21:52:43,847 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.spindle-load-indicator.in-f (float in)
+2023-01-18 21:52:43,848 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.spindle-load-indicator.in-i (u32 in)
+2023-01-18 21:52:43,849 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.spindle-load-indicator.min-val (float in)
+2023-01-18 21:52:43,850 - qtpyvcp.hal.hal_qlib - DEBUG - Adding HAL pin: qtpyvcp.spindle-load-indicator.max-val (float in)
+2023-01-18 21:52:43,855 - qtpyvcp.app.launcher - DEBUG - Time: 35.041 (+0.140) - done initializing widgets
+2023-01-18 21:52:43,855 - qtpyvcp.app.launcher - INFO - Loading POSTGUI_HALFILE: /home/avery/linuxcnc/configs/probe_basic_taig/hallib/time.hal
+2023-01-18 21:53:19,949 - qtpyvcp.actions.machine_actions - DEBUG - Setting state ESTOP
+2023-01-18 21:53:25,472 - qtpyvcp.actions.machine_actions - DEBUG - Setting state ESTOP
+2023-01-18 21:53:32,664 - qtpyvcp - DEBUG - Terminating widgets
+2023-01-18 21:53:32,697 - qtpyvcp.plugins - DEBUG - Terminating 'virtual_input' plugin
+2023-01-18 21:53:32,698 - qtpyvcp.plugins - DEBUG - Terminating 'file_locations' plugin
+2023-01-18 21:53:32,698 - qtpyvcp.plugins - DEBUG - Terminating 'notifications' plugin
+2023-01-18 21:53:32,698 - qtpyvcp.plugins - DEBUG - Terminating 'offsettable' plugin
+2023-01-18 21:53:32,698 - qtpyvcp.plugins - DEBUG - Terminating 'tooltable' plugin
+2023-01-18 21:53:32,699 - qtpyvcp.plugins - DEBUG - Terminating 'position' plugin
+2023-01-18 21:53:32,699 - qtpyvcp.plugins - DEBUG - Terminating 'settings' plugin
+2023-01-18 21:53:32,699 - qtpyvcp.plugins - DEBUG - Terminating 'persistent_data_manager' plugin
+2023-01-18 21:53:32,700 - qtpyvcp.plugins.persistent_data_manager - DEBUG - Writing persistent data to file: /home/avery/linuxcnc/configs/probe_basic_taig/.vcp_persistent_data.pickle
+2023-01-18 21:53:32,702 - qtpyvcp.plugins - DEBUG - Terminating 'status' plugin

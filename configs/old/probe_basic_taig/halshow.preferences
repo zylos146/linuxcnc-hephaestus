@@ -1,0 +1,20 @@
+# Halshow settings
+# This file is generated automatically.
+wm geometry . 1061x684+726+153
+placeFrames 0.3
+set ::ratio 0.3
+set ::old_w_leftf 160
+set ::watchlist {
+    pin+iocontrol.0.user-enable-out
+    pin+iocontrol.0.user-request-enable
+    pin+halui.estop.activate
+    pin+halui.estop.is-activated
+    pin+halui.estop.reset
+}
+set ::workmode showhal
+set ::watchInterval 100
+set ::col1_width 100
+set ::ffmts 
+set ::ifmts 
+set ::alwaysOnTop 1
+set ::autoSaveWatchlist 1
