@@ -35,10 +35,6 @@ setp   pid.z.FF2       [JOINT_2]FF2
 setp   pid.z.deadband  [JOINT_2]DEADBAND
 setp   pid.z.maxoutput [JOINT_2]MAX_OUTPUT
 setp   pid.z.error-previous-target true
-# This setting is to limit bogus stepgen
-# velocity corrections caused by position
-# feedback sample time jitter.
-setp   pid.z.maxerror 0.012700
 
 # Machine > Joint (Home/Limit)
 net max-z => joint.2.home-sw-in
@@ -51,6 +47,7 @@ net z-pos-cmd    <= joint.2.motor-pos-cmd
 net z-vel-cmd    <= joint.2.vel-cmd
 net z-pos-fb     => joint.2.motor-pos-fb
 net z-enable     <= joint.2.amp-enable-out
+net z-amp-fault  => joint.2.amp-fault-in
 
 # PID > Net
 net z-index-enable  =>  pid.z.index-enable

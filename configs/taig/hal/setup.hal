@@ -14,11 +14,16 @@ addf lcec.read-all servo-thread
 
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
+
 addf pid.x.do-pid-calcs       servo-thread
 addf pid.y.do-pid-calcs       servo-thread
 addf pid.z.do-pid-calcs       servo-thread
 
 addf lcec.write-all servo-thread
+
+net ec-slaves-responding <= lcec.slaves-responding
+net ec-link-up <= lcec.link-up
+net ec-all-op <= lcec.all-op
 
 # external output signals
 

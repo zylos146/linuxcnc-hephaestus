@@ -2,3 +2,8 @@
 # TODO net spindle-enable <= spindle.0.on => hm2_5i25.0.stepgen.09.enable => hm2_5i25.0.7i76.0.0.output-00
 #net spindle-fwd spindle.0.forward => hm2_5i25.0.stepgen.09.direction.invert_output
 #net spindle-rev spindle.0.reverse => hm2_5i25.0.stepgen.09.direction.invert_output
+
+setp lcec.0.servo.stp-pos-scale [SPINDLE]STEP_SCALE
+setp lcec.0.servo.stp-ramp-disable false
+net spindle-enable <= spindle.0.on => lcec.0.servo.stp-enable
+net spindle-speed-cmd spindle.0.speed-out-rps => lcec.0.servo.stp-velo-cmd

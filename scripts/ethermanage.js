@@ -5,6 +5,18 @@ const typeOverride = {
   'type 080e': 'uint16'
 }
 
+// https://github.com/browserify/buffer-reverse/blob/master/inplace.js
+function reverseInplace (buffer) {
+  for (var i = 0, j = buffer.length - 1; i < j; ++i, --j) {
+    var t = buffer[j]
+
+    buffer[j] = buffer[i]
+    buffer[i] = t
+  }
+
+  return buffer
+}
+
 const decodeSDOBlock = (text) => {
   let sdoList = []
   let sdoRegex = new RegExp(/\s\s0x([a-z\d]{4}):([a-z\d]{2}),[^,]+,([^,]+),[^,]+,\s"([^"]+)"/gm)
@@ -86,11 +98,30 @@ const main = async (args) => {
       try {
         const { stdout, stderr } = await exec(`ethercat upload -p ${slaveId} 0x${offset} 0x${subOffset} --type ${type}`);
 
-        let value = stdout.replace('\n', '').replace(/[\u0000-\u001F\u007F-\u009F]/g, "")
+        if (block.sdoIndex == '10f3' && type == 'octet_string') {
+          let buffer = reverseInplace(Buffer.from(stdout))
+          let diagCode = buffer.slice(0, 4)
+          let flags = buffer.slice(4, 6)
+          let textId = buffer.slice(6, 8)
+          let timestamp = buffer.slice(8, 16)
+          let extra = buffer.slice(16, -1)
 
-        structured.push({
-          offset: `0x${offset} 0x${subOffset}`, type, value, desc
-        })
+          if (diagCode.toString('hex') == '00000000') {
+            continue
+          }
+
+          structured.push({
+            offset: `0x${offset} 0x${subOffset}`, type, 
+            diag_code: diagCode.toString('hex'), flags: flags.toString('hex'), 
+            text_id: textId.toString('hex'), timestamp: timestamp.toString('hex'), 
+            value: buffer.toString('hex'), desc
+          })
+        } else {
+          let value = stdout.replace('\n', '')
+          structured.push({
+            offset: `0x${offset} 0x${subOffset}`, type, value, desc
+          })
+        }
       } catch (err) {
         if (err?.message?.includes('Error: Command failed')) {
           console.log(`Unknown failure when looking up ${offset}:${subOffset}\n ${err.message}`)
