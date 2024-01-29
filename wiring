@@ -1,0 +1,74 @@
+On / Off control:
+- Compressor (Actually needs to be on whenever spindle is on. Shouldn't allow spindle to turn on unless air pressure is present)
+- Lighting
+- Vacuum
+- Coolant Pump
+- Coolant Valve (CNC or Dump)
+
+Liquid:
+- Bucket -> Filter -> Pump -> Valve
+- Valve (A) -> CNC
+- Valve (B) -> Dump (for exchanging coolant fluid)
+
+Inputs:
+- Door Sensor L (NC = closed door)
+- Door Sensor R (NC = closed door)
+- Spindle Start (NO)
+- Spindle Stop (Momentary E-Stop - NC)
+- Steppers Powered (Feeds into Machine Power state?)
+- Spindle Powered (NO output from Safety Relay)
+- Pressure Sensor (4-20mA?) for Air Line to Spindle
+
+Sensors:
+- X Home Switch (NC - Pull Up)
+- Y Home Switch (NC - Pull Up)
+- Z Home Switch (NC - Pull Up)
+- Probe Switch (NC - Pull Up)
+- Touch-off Switch
+- 
+
+Contactors:
+- 
+- 
+
+Control Panel (4x Yellow):
+-- Compressor has to be controlled by Linuxcnc, as it's required for Spindle operation
+- Vacuum On/Off
+- Compressor On/Off (Can be overrided by Linuxcnc to start Spindle, or maybe just pressure sensor needs to be monitored?)
+- Light On/Off
+- Spindle Start/Reset
+
+
+E-Stop:
+- Shutoff Coolant
+-- Could be leaking, spraying in unwanted places, etc
+- Shutoff Spindle
+-- Could be crashed, etc
+- Shutoff Steppers
+-- Do so by interrupting 48V Stepper Power
+-- Do -not- shut-off the Beckhoff stack
+
+- E-Stop can be fed from
+-- Pendant Button
+-- Beckhoff Output (High is Active - SM Watchdog will de-activate if system goes down)
+-- Mushroom Button
+
+- E-Stop status will feed into 
+-- Main Contactor
+-- Beckhoff Input
+
+-- TODO - Add pressure switch to prevent spindle from running unless air curtain is active
+-- TODO - Switch coolant bucket to hopper style to allow full draining for cleaning? (I think I just need to add some extra water to flush it out)
+--      - Could also better mount the suction inlet so it's properly mounted at the bottom of the bucket
+
+
+-- I want to be able to shut-down the spindle, 
+-- but keep the steppers active to work on machine internals like jogging an indicator
+
+-- Build some way of getting program to prevent starting if
+--- Spindle Air Pressure isn't good
+--- Steppers are in E-Stop (E-Stop the whole machine then)
+--- Spindle is in E-Stop
+
+EK1100
+EL1104
