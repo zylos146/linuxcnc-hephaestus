@@ -1,0 +1,56 @@
+#*******************
+#  AXIS Z JOINT 2
+#*******************
+
+setp   pid.z.Pgain     [JOINT_2]P
+setp   pid.z.Igain     [JOINT_2]I
+setp   pid.z.Dgain     [JOINT_2]D
+setp   pid.z.bias      [JOINT_2]BIAS
+setp   pid.z.FF0       [JOINT_2]FF0
+setp   pid.z.FF1       [JOINT_2]FF1
+setp   pid.z.FF2       [JOINT_2]FF2
+setp   pid.z.deadband  [JOINT_2]DEADBAND
+setp   pid.z.maxoutput [JOINT_2]MAX_OUTPUT
+setp   pid.z.error-previous-target true
+# This setting is to limit bogus stepgen
+# velocity corrections caused by position
+# feedback sample time jitter.
+setp   pid.z.maxerror 0.012700
+
+net z-index-enable  =>  pid.z.index-enable
+net z-enable        =>  pid.z.enable
+net z-pos-cmd       =>  pid.z.command
+net z-pos-fb        =>  pid.z.feedback
+net z-output        <=  pid.z.output
+
+# Step Gen signals/setup
+
+setp   hm2_5i25.0.stepgen.02.dirsetup        [JOINT_2]DIRSETUP
+setp   hm2_5i25.0.stepgen.02.dirhold         [JOINT_2]DIRHOLD
+setp   hm2_5i25.0.stepgen.02.steplen         [JOINT_2]STEPLEN
+setp   hm2_5i25.0.stepgen.02.stepspace       [JOINT_2]STEPSPACE
+setp   hm2_5i25.0.stepgen.02.position-scale  [JOINT_2]STEP_SCALE
+setp   hm2_5i25.0.stepgen.02.step_type        0
+setp   hm2_5i25.0.stepgen.02.control-type     1
+setp   hm2_5i25.0.stepgen.02.maxaccel         [JOINT_2]STEPGEN_MAXACCEL
+setp   hm2_5i25.0.stepgen.02.maxvel           [JOINT_2]STEPGEN_MAXVEL
+
+# ---closedloop stepper signals---
+
+net z-pos-cmd    <= joint.2.motor-pos-cmd
+net z-vel-cmd    <= joint.2.vel-cmd
+net z-output     => hm2_5i25.0.stepgen.02.velocity-cmd
+net z-pos-fb     <= hm2_5i25.0.stepgen.02.position-fb
+net z-pos-fb     => joint.2.motor-pos-fb
+net z-enable     <= joint.2.amp-enable-out
+net z-enable     => hm2_5i25.0.stepgen.02.enable
+
+# ---setup home / limit switch signals---
+
+# net z-home-sw     =>  joint.2.home-sw-in
+# net z-neg-limit     =>  joint.2.neg-lim-sw-in
+# net z-pos-limit     =>  joint.2.pos-lim-sw-in
+
+net max-z <= hm2_5i25.0.7i76.0.0.input-01-not
+net max-z => joint.2.home-sw-in
+#net max-z => joint.2.pos-lim-sw-in

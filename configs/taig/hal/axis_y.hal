@@ -1,0 +1,56 @@
+#*******************
+#  AXIS Y JOINT 1
+#*******************
+
+setp   pid.y.Pgain     [JOINT_1]P
+setp   pid.y.Igain     [JOINT_1]I
+setp   pid.y.Dgain     [JOINT_1]D
+setp   pid.y.bias      [JOINT_1]BIAS
+setp   pid.y.FF0       [JOINT_1]FF0
+setp   pid.y.FF1       [JOINT_1]FF1
+setp   pid.y.FF2       [JOINT_1]FF2
+setp   pid.y.deadband  [JOINT_1]DEADBAND
+setp   pid.y.maxoutput [JOINT_1]MAX_OUTPUT
+setp   pid.y.error-previous-target true
+# This setting is to limit bogus stepgen
+# velocity corrections caused by position
+# feedback sample time jitter.
+setp   pid.y.maxerror 0.012700
+
+net y-index-enable  =>  pid.y.index-enable
+net y-enable        =>  pid.y.enable
+net y-pos-cmd       =>  pid.y.command
+net y-pos-fb        =>  pid.y.feedback
+net y-output        <=  pid.y.output
+
+# Step Gen signals/setup
+
+setp   hm2_5i25.0.stepgen.01.dirsetup        [JOINT_1]DIRSETUP
+setp   hm2_5i25.0.stepgen.01.dirhold         [JOINT_1]DIRHOLD
+setp   hm2_5i25.0.stepgen.01.steplen         [JOINT_1]STEPLEN
+setp   hm2_5i25.0.stepgen.01.stepspace       [JOINT_1]STEPSPACE
+setp   hm2_5i25.0.stepgen.01.position-scale  [JOINT_1]STEP_SCALE
+setp   hm2_5i25.0.stepgen.01.step_type        0
+setp   hm2_5i25.0.stepgen.01.control-type     1
+setp   hm2_5i25.0.stepgen.01.maxaccel         [JOINT_1]STEPGEN_MAXACCEL
+setp   hm2_5i25.0.stepgen.01.maxvel           [JOINT_1]STEPGEN_MAXVEL
+
+# ---closedloop stepper signals---
+
+net y-pos-cmd    <= joint.1.motor-pos-cmd
+net y-vel-cmd    <= joint.1.vel-cmd
+net y-output     => hm2_5i25.0.stepgen.01.velocity-cmd
+net y-pos-fb     <= hm2_5i25.0.stepgen.01.position-fb
+net y-pos-fb     => joint.1.motor-pos-fb
+net y-enable     <= joint.1.amp-enable-out
+net y-enable     => hm2_5i25.0.stepgen.01.enable
+
+# ---setup home / limit switch signals---
+
+# net y-home-sw     =>  joint.1.home-sw-in
+# net y-neg-limit     =>  joint.1.neg-lim-sw-in
+# net y-pos-limit     =>  joint.1.pos-lim-sw-in
+
+net max-y <= hm2_5i25.0.7i76.0.0.input-02-not
+net max-y => joint.1.home-sw-in
+#net max-y => joint.1.pos-lim-sw-in
