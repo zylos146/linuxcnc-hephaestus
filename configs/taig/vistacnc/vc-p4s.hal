@@ -76,11 +76,11 @@ net max-enable vc-p4s.max-velocity.count.enable => halui.max-velocity.count-enab
 net max-counts vc-p4s.max-counts => halui.max-velocity.counts
 net max.value halui.max-velocity.value => vc-p4s.max-velocity.value 
 
-# 9---SPINDLE OVERRIDE
-setp halui.spindle.0.override.scale 0.001
-net spindle-enable vc-p4s.spindle-override.count.enable => halui.spindle.0.override.count-enable 
-net spindle-counts vc-p4s.spindle-counts => halui.spindle.0.override.counts
-net spindle.value halui.spindle.0.override.value => vc-p4s.spindle-override.value
+# 9---SPINDLE OVERRIDE - TODO - Figure this out
+#setp halui.spindle.0.override.scale 0.001
+#net spindle-enable vc-p4s.spindle-override.count.enable => halui.spindle.0.override.count-enable 
+#net spindle-counts vc-p4s.spindle-counts => halui.spindle.0.override.counts
+#net spindle.value halui.spindle.0.override.value => vc-p4s.spindle-override.value
 
 # 10---PROGRAM
 net program.is-idle    halui.program.is-idle    =>  vc-p4s.program.is-idle
