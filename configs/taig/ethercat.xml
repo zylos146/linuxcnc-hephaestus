@@ -11,8 +11,51 @@
 
     <!-- https://github.com/linuxcnc-ethercat/linuxcnc-ethercat/blob/master/src/devices/lcec_el7041.c -->
     <!-- https://github.com/linuxcnc-ethercat/linuxcnc-ethercat/blob/master/documentation/el7041.md -->
-    <slave idx="8" name="x-axis" type="EL7041" vid="0x00000002" pid="0x1b873052"/>
-    <slave idx="9" name="y-axis" type="EL7041" vid="0x00000002" pid="0x1b873052"/>
-    <slave idx="10" name="z-axis" type="EL7041" vid="0x00000002" pid="0x1b873052"/>
+    <slave idx="8" name="x-axis" type="EL7041" vid="0x00000002" pid="0x1b873052">
+      <!-- STP-MTR-23055 -->
+      <!-- Most modParams with units are multiplied by 1000, potentially incorrectly. This changes the units -->
+	    <modParam name="maxCurrent" value="2.8"/>      <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="reducedCurrent" value="1.5"/> <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="nominalVoltage" value="4.8"/>  <!-- 10V / unit (x1000 10 mV / unit) -->
+	    <modParam name="coilResistance" value=".075"/> <!-- 10Ohm / unit (x1000 10 mOhm / unit) -->
+	    <modParam name="motorEMF" value="2.955"/>          <!-- (x1000 1 mV / (rad/s)) -->
+	    <modParam name="motorFullsteps" value="200"/>  <!-- 200 steps per rev -->
+      <!-- Max Speed 2000 steps per second = 762mm/min, so we use 4000 as a max -->
+	    <!--BROKEN Sends sdo16 for bit3 type <modParam name="maxSpeed" value="4000"/>--> 
+	    <modParam name="encoder" value="false"/>       <!-- Use internal encoder -->
+      
+      <sdoConfig idx="8010" subIdx="0a"><sdoDataRaw data="00 F0"/></sdoConfig> <!-- 2.4mH coilInductance 0.01 mH / unit  -->
+      <!-- <sdoConfig idx="8012" subIdx="01"><sdoDataRaw data="06"/></sdoConfig>--> <!-- Operation Mode: Velocity Sensorless -->
+    </slave>
+    <slave idx="9" name="y-axis" type="EL7041" vid="0x00000002" pid="0x1b873052">
+      <!-- STP-MTR-23055 -->
+      <!-- Most modParams with units are multiplied by 1000, potentially incorrectly. This changes the units -->
+	    <modParam name="maxCurrent" value="2.8"/>      <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="reducedCurrent" value="1.5"/> <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="nominalVoltage" value="4.8"/>  <!-- 10V / unit (x1000 10 mV / unit) -->
+	    <modParam name="coilResistance" value=".075"/> <!-- 10Ohm / unit (x1000 10 mOhm / unit) -->
+	    <modParam name="motorEMF" value="2.955"/>          <!-- (x1000 1 mV / (rad/s)) -->
+	    <modParam name="motorFullsteps" value="200"/>  <!-- 200 steps per rev -->
+      <!-- Max Speed 2000 steps per second = 762mm/min, so we use 4000 as a max -->
+	    <!--BROKEN Sends sdo16 for bit3 type <modParam name="maxSpeed" value="4000"/>-->
+	    <modParam name="encoder" value="false"/>       <!-- Use internal encoder -->
+      
+      <sdoConfig idx="8010" subIdx="0a"><sdoDataRaw data="00 F0"/></sdoConfig> <!-- 2.4mH coilInductance 0.01 mH / unit  -->
+    </slave>
+    <slave idx="10" name="z-axis" type="EL7041" vid="0x00000002" pid="0x1b873052">
+      <!-- STP-MTR-23055 -->
+      <!-- Most modParams with units are multiplied by 1000, potentially incorrectly. This changes the units -->
+	    <modParam name="maxCurrent" value="2.8"/>      <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="reducedCurrent" value="1.5"/> <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="nominalVoltage" value="4.8"/>  <!-- 10V / unit (x1000 10 mV / unit) -->
+	    <modParam name="coilResistance" value=".075"/> <!-- 10Ohm / unit (x1000 10 mOhm / unit) -->
+	    <modParam name="motorEMF" value="2.955"/>          <!-- (x1000 1 mV / (rad/s)) -->
+	    <modParam name="motorFullsteps" value="200"/>  <!-- 200 steps per rev -->
+      <!-- Max Speed 2000 steps per second = 762mm/min, so we use 4000 as a max -->
+	    <!--BROKEN Sends sdo16 for bit3 type <modParam name="maxSpeed" value="4000"/>-->
+	    <modParam name="encoder" value="false"/>       <!-- Use internal encoder -->
+      
+      <sdoConfig idx="8010" subIdx="0a"><sdoDataRaw data="00 F0"/></sdoConfig> <!-- 2.4mH coilInductance 0.01 mH / unit  -->
+    </slave>
   </master>
 </masters>
