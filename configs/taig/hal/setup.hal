@@ -3,38 +3,22 @@
 # If you make changes to this file, they will be
 # overwritten when you run PNCconf again
 
+loadusr -W lcec_conf /home/avery/linuxcnc/configs/taig/ethercat.xml
+loadrt lcec
+
 loadrt [KINS]KINEMATICS
-loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
-loadrt hostmot2
-loadrt hm2_pci config="num_encoders=1 num_stepgens=10 sserial_port_0=0000xxxx" 
-setp    hm2_5i25.0.pwmgen.pwm_frequency 20000
-setp    hm2_5i25.0.pwmgen.pdm_frequency 6000000
-setp    hm2_5i25.0.watchdog.timeout_ns 5000000
+loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
 loadrt pid names=pid.x,pid.y,pid.z
 
-addf hm2_5i25.0.read          servo-thread
+addf lcec.read-all servo-thread
+
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
 addf pid.x.do-pid-calcs       servo-thread
 addf pid.y.do-pid-calcs       servo-thread
 addf pid.z.do-pid-calcs       servo-thread
-#addf pid.s.do-pid-calcs       servo-thread
-addf hm2_5i25.0.write         servo-thread
 
-# ---Chargepump StepGen: 0.25 velocity = 10Khz square wave output---
-
-setp   hm2_5i25.0.stepgen.04.dirsetup        100
-setp   hm2_5i25.0.stepgen.04.dirhold         100
-setp   hm2_5i25.0.stepgen.04.steplen         100
-setp   hm2_5i25.0.stepgen.04.stepspace       100
-setp   hm2_5i25.0.stepgen.04.position-scale  10000
-setp   hm2_5i25.0.stepgen.04.step_type       2
-setp   hm2_5i25.0.stepgen.04.control-type    1
-setp   hm2_5i25.0.stepgen.04.maxaccel        0
-setp   hm2_5i25.0.stepgen.04.maxvel          0
-setp   hm2_5i25.0.stepgen.04.velocity-cmd    0.25
-
-net x-enable                                 => hm2_5i25.0.stepgen.04.enable
+addf lcec.write-all servo-thread
 
 # external output signals
 

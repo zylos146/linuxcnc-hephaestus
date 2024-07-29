@@ -1,27 +1,4 @@
-# Step Gen signals/setup
-
-setp   hm2_5i25.0.stepgen.09.dirsetup        [SPINDLE]DIRSETUP
-setp   hm2_5i25.0.stepgen.09.dirhold         [SPINDLE]DIRHOLD
-setp   hm2_5i25.0.stepgen.09.steplen         [SPINDLE]STEPLEN
-setp   hm2_5i25.0.stepgen.09.stepspace       [SPINDLE]STEPSPACE
-setp   hm2_5i25.0.stepgen.09.position-scale  [SPINDLE]STEP_SCALE
-setp   hm2_5i25.0.stepgen.09.step_type        0
-setp   hm2_5i25.0.stepgen.09.control-type     1
-setp   hm2_5i25.0.stepgen.09.maxaccel         [SPINDLE]STEPGEN_MAXACCEL
-setp   hm2_5i25.0.stepgen.09.maxvel           [SPINDLE]STEPGEN_MAXVEL
-setp   hm2_5i25.0.stepgen.09.direction.invert_output 1
-
-net spindle-speed-cmd spindle.0.speed-out-rps => hm2_5i25.0.stepgen.09.velocity-cmd
-net spindle-enable <= spindle.0.on => hm2_5i25.0.stepgen.09.enable => hm2_5i25.0.7i76.0.0.output-00
+# TODO net spindle-speed-cmd spindle.0.speed-out-rps => hm2_5i25.0.stepgen.09.velocity-cmd
+# TODO net spindle-enable <= spindle.0.on => hm2_5i25.0.stepgen.09.enable => hm2_5i25.0.7i76.0.0.output-00
 #net spindle-fwd spindle.0.forward => hm2_5i25.0.stepgen.09.direction.invert_output
 #net spindle-rev spindle.0.reverse => hm2_5i25.0.stepgen.09.direction.invert_output
-
-# ---digital potentiometer output signals/setup---
-
-#setp   hm2_5i25.0.7i76.0.0.spinout-minlim    [SPINDLE_0]OUTPUT_MIN_LIMIT
-#setp   hm2_5i25.0.7i76.0.0.spinout-maxlim    [SPINDLE_0]OUTPUT_MAX_LIMIT
-#setp   hm2_5i25.0.7i76.0.0.spinout-scalemax  [SPINDLE_0]OUTPUT_SCALE
-
-#net spindle-output      => hm2_5i25.0.7i76.0.0.spinout
-#net spindle-enable      => hm2_5i25.0.7i76.0.0.spinena
-#net spindle-ccw         => hm2_5i25.0.7i76.0.0.spindir

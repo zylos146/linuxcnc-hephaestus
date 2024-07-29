@@ -48,15 +48,3 @@ net spindle-cmd 	mux2.0.out
 # net spindle-pwm 	pwmgen.0.pwm parport.0.pin-NN-out
 # net spindle-fwd 	abs.0.is-positive parport.0.pin-NN-out
 # net spindle-rev 	abs.0.is-negative parport.0.pin-NN-out
-
-# Tune the PID from the INI values
-setp pid.0.Pgain [SPINDLE]PGAIN_V
-setp pid.0.Igain [SPINDLE]IGAIN_V
-setp pid.0.Dgain [SPINDLE]DGAIN_V
-setp pid.0.FF0	 [SPINDLE]FF0_V
-setp pid.0.FF1   [SPINDLE]FF1_V
-setp pid.1.Pgain [SPINDLE]PGAIN_P
-setp pid.1.Igain [SPINDLE]IGAIN_P
-setp pid.1.Dgain [SPINDLE]DGAIN_P
-setp pid.1.FF0	 [SPINDLE]FF0_P
-setp pid.1.FF1   [SPINDLE]FF1_P

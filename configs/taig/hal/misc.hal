@@ -35,7 +35,7 @@ net coolant-flood     <=  iocontrol.0.coolant-flood
 
 #  ---probe signal---
 
-net probe-in <= hm2_5i25.0.7i76.0.0.input-00-not
+# TODO net probe-in <= hm2_5i25.0.7i76.0.0.input-00-not
 net probe-in => motion.probe-input
 
 #  ---motion control signals---

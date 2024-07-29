@@ -2,6 +2,33 @@
 #  AXIS Y JOINT 1
 #*******************
 
+# TODO net y-index-enable  =>  pid.y.index-enable
+# TODO net y-enable        =>  pid.y.enable
+# TODO net y-pos-cmd       =>  pid.y.command
+# TODO net y-pos-fb        =>  pid.y.feedback
+# TODO net y-output        <=  pid.y.output
+
+# ---closedloop stepper signals---
+
+net y-pos-cmd    <= joint.1.motor-pos-cmd
+net y-vel-cmd    <= joint.1.vel-cmd
+# TODO net y-output     => hm2_5i25.0.stepgen.01.velocity-cmd
+# TODO net y-pos-fb     <= hm2_5i25.0.stepgen.01.position-fb
+net y-pos-fb     => joint.1.motor-pos-fb
+net y-enable     <= joint.1.amp-enable-out
+# TODO net y-enable     => hm2_5i25.0.stepgen.01.enable
+
+# ---setup home / limit switch signals---
+
+# net y-home-sw     =>  joint.1.home-sw-in
+# net y-neg-limit     =>  joint.1.neg-lim-sw-in
+# net y-pos-limit     =>  joint.1.pos-lim-sw-in
+
+# TODO net max-y <= hm2_5i25.0.7i76.0.0.input-02-not
+net max-y => joint.1.home-sw-in
+#net max-y => joint.1.pos-lim-sw-in
+
+# Setup the PID Parameters
 setp   pid.y.Pgain     [JOINT_1]P
 setp   pid.y.Igain     [JOINT_1]I
 setp   pid.y.Dgain     [JOINT_1]D
@@ -17,40 +44,35 @@ setp   pid.y.error-previous-target true
 # feedback sample time jitter.
 setp   pid.y.maxerror 0.012700
 
+# Machine > Joint (Home/Limit)
+net max-y => joint.1.home-sw-in
+# TODO - net max-y <= lcec.0.in1x4.0 # hm2_5i25.0.7i76.0.0.input-03-not
+# net y-neg-limit     =>  joint.1.neg-lim-sw-in
+# net y-pos-limit     =>  joint.1.pos-lim-sw-in
+
+## Hook up Joint > PID
+net y-pos-cmd    <= joint.1.motor-pos-cmd
+net y-vel-cmd    <= joint.1.vel-cmd
+net y-pos-fb     => joint.1.motor-pos-fb
+net y-enable     <= joint.1.amp-enable-out
+
+# PID > Net
 net y-index-enable  =>  pid.y.index-enable
 net y-enable        =>  pid.y.enable
 net y-pos-cmd       =>  pid.y.command
 net y-pos-fb        =>  pid.y.feedback
 net y-output        <=  pid.y.output
 
-# Step Gen signals/setup
+# set motor position scale (default 1 motor revolution)
+setp lcec.0.y-axis.srv-scale [AXIS_Y]SCALE
+setp lcec.0.y-axis.enc-pos-scale [AXIS_Y]ENC_SCALE
 
-setp   hm2_5i25.0.stepgen.01.dirsetup        [JOINT_1]DIRSETUP
-setp   hm2_5i25.0.stepgen.01.dirhold         [JOINT_1]DIRHOLD
-setp   hm2_5i25.0.stepgen.01.steplen         [JOINT_1]STEPLEN
-setp   hm2_5i25.0.stepgen.01.stepspace       [JOINT_1]STEPSPACE
-setp   hm2_5i25.0.stepgen.01.position-scale  [JOINT_1]STEP_SCALE
-setp   hm2_5i25.0.stepgen.01.step_type        0
-setp   hm2_5i25.0.stepgen.01.control-type     1
-setp   hm2_5i25.0.stepgen.01.maxaccel         [JOINT_1]STEPGEN_MAXACCEL
-setp   hm2_5i25.0.stepgen.01.maxvel           [JOINT_1]STEPGEN_MAXVEL
+# output velocity command from position control
+# the scale of this value respects the setting
+# of srv-pos-scale. if scale is set to 1.0 this
+# means 1 motor revolution per second.
 
-# ---closedloop stepper signals---
-
-net y-pos-cmd    <= joint.1.motor-pos-cmd
-net y-vel-cmd    <= joint.1.vel-cmd
-net y-output     => hm2_5i25.0.stepgen.01.velocity-cmd
-net y-pos-fb     <= hm2_5i25.0.stepgen.01.position-fb
-net y-pos-fb     => joint.1.motor-pos-fb
-net y-enable     <= joint.1.amp-enable-out
-net y-enable     => hm2_5i25.0.stepgen.01.enable
-
-# ---setup home / limit switch signals---
-
-# net y-home-sw     =>  joint.1.home-sw-in
-# net y-neg-limit     =>  joint.1.neg-lim-sw-in
-# net y-pos-limit     =>  joint.1.pos-lim-sw-in
-
-net max-y <= hm2_5i25.0.7i76.0.0.input-02-not
-net max-y => joint.1.home-sw-in
-#net max-y => joint.1.pos-lim-sw-in
+net y-enable    => lcec.0.y-axis.srv-enable
+net y-amp-fault <= lcec.0.y-axis.srv-error # TODO - Fault autoreset with this?
+net y-output    => lcec.0.y-axis.srv-cmd
+net y-pos-fb    <= lcec.0.y-axis.enc-pos

@@ -1,0 +1,18 @@
+<masters>
+  <master idx="0" appTimePeriod="1000000" refClockSyncCycles="1000">
+    <slave idx="0" name="Master" type="EK1100"/>
+    <slave idx="1" name="in1x4" type="EL1104"/>
+    <slave idx="2" name="in2x4" type="EL1104"/>
+    <slave idx="3" name="in3x4" type="EL1104"/>
+    <slave idx="4" name="in4x4" type="EL1104"/>
+    <slave idx="5" name="relay1x2" type="EL2622"/>
+    <slave idx="6" name="out1x2" type="EL2002"/>
+    <slave idx="7" name="out2x2" type="EL2002"/>
+
+    <!-- https://github.com/linuxcnc-ethercat/linuxcnc-ethercat/blob/master/src/devices/lcec_el7041.c -->
+    <!-- https://github.com/linuxcnc-ethercat/linuxcnc-ethercat/blob/master/documentation/el7041.md -->
+    <slave idx="8" name="x-axis" type="EL7041" vid="0x00000002" pid="0x1b873052"/>
+    <slave idx="9" name="y-axis" type="EL7041" vid="0x00000002" pid="0x1b873052"/>
+    <slave idx="10" name="z-axis" type="EL7041" vid="0x00000002" pid="0x1b873052"/>
+  </master>
+</masters>

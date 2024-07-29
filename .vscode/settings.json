@@ -1,0 +1,14 @@
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "comment.line.number-sign.linuxcnc.hal",
+        "settings": { "foreground": "#f5890f" }
+      },
+      {
+        "scope": "punctuation.definition.comment.linuxcnc.hal",
+        "settings": { "foreground": "#f5890f" }
+      }
+    ]
+  }
+}
