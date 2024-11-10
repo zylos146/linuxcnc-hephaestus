@@ -73,3 +73,6 @@ net y-enable    => lcec.0.y-axis.srv-enable
 net y-amp-fault <= lcec.0.y-axis.srv-error # TODO - Fault autoreset with this?
 net y-output    => lcec.0.y-axis.srv-cmd
 net y-pos-fb    <= lcec.0.y-axis.enc-pos
+
+net max-y <= lcec.0.limit1.din-1-not
+net max-y => joint.1.home-sw-in

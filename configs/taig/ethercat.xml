@@ -2,8 +2,8 @@
   <master idx="0" appTimePeriod="1000000" refClockSyncCycles="1000">
     <slave idx="0" name="Master" type="EK1100"/>
     <slave idx="1" name="in1x4" type="EL1104"/>
-    <slave idx="2" name="in2x4" type="EL1104"/>
-    <slave idx="3" name="in3x4" type="EL1104"/>
+    <slave idx="2" name="limit1" type="EL1104"/>
+    <slave idx="3" name="limit2" type="EL1104"/>
     <slave idx="4" name="in4x4" type="EL1104"/>
     <slave idx="5" name="in5x4" type="EL1104"/>
     <!-- <slave idx="5" name="relay1x2" type="EL2622"/> -->
@@ -50,8 +50,8 @@
     <slave idx="10" name="z-axis" type="EL7041" vid="0x00000002" pid="0x1b873052">
       <!-- STP-MTR-23055 -->
       <!-- Most modParams with units are multiplied by 1000, potentially incorrectly. This changes the units -->
-	    <modParam name="maxCurrent" value="2.8"/>      <!-- 1A / unit (x1000 1mA / unit) -->
-	    <modParam name="reducedCurrent" value="1.5"/> <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="maxCurrent" value="5"/>      <!-- 1A / unit (x1000 1mA / unit) -->
+	    <modParam name="reducedCurrent" value="3"/> <!-- 1A / unit (x1000 1mA / unit) -->
 	    <modParam name="nominalVoltage" value="4.8"/>  <!-- 10V / unit (x1000 10 mV / unit) -->
 	    <modParam name="coilResistance" value=".075"/> <!-- 10Ohm / unit (x1000 10 mOhm / unit) -->
 	    <modParam name="motorEMF" value="2.955"/>          <!-- (x1000 1 mV / (rad/s)) -->

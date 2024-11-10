@@ -69,3 +69,6 @@ net z-enable    => lcec.0.z-axis.srv-enable
 net z-amp-fault <= lcec.0.z-axis.srv-error # TODO - Fault autoreset with this?
 net z-output    => lcec.0.z-axis.srv-cmd
 net z-pos-fb    <= lcec.0.z-axis.enc-pos
+
+net max-z <= lcec.0.limit1.din-0-not
+net max-z => joint.2.home-sw-in

@@ -43,3 +43,6 @@ net x-enable => lcec.0.x-axis.srv-enable
 net x-amp-fault <= lcec.0.x-axis.srv-error # TODO - Fault autoreset with this?
 net x-output => lcec.0.x-axis.srv-cmd
 net x-pos-fb <= lcec.0.x-axis.enc-pos
+
+net max-x <= lcec.0.limit2.din-0-not
+net max-x => joint.0.home-sw-in
